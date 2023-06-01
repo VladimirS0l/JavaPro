@@ -1,0 +1,388 @@
+    public void stepBotBoard(int[] playerStep, int numberPlayer, int numXO){
+        String ai = numberPlayer == 0 ? "0" : "X";
+        System.out.println(ai + " ai");
+        int x = playerStep[0];
+        int y = playerStep[1];
+        int stepOnFindBoard = 1;
+        if (cbi.checkOnDiagonal(board, numXO/2)) {
+            while (true){
+                if (cbi.checkBoundDiagonal(x - stepOnFindBoard, y + stepOnFindBoard, board)){
+                    board[x - stepOnFindBoard][y + stepOnFindBoard] = ai;
+                    System.out.println("check");
+                    break;
+                } else if (cbi.checkBoundDiagonal(x + stepOnFindBoard, y - stepOnFindBoard, board)) {
+                    board[x + stepOnFindBoard][y - stepOnFindBoard] = ai;
+                    System.out.println("check");
+                    break;
+                }else {
+                    int a = random.nextInt(0, board.length);
+                    int b = random.nextInt(0, board[0].length);
+                    if (board[a][b].equals(DOT_EMPTY)){
+                        board[a][b] = ai;
+                        System.out.println("1. X: " + (a) + "Y: " + (b));
+                        System.out.println("check");
+                        break;
+                    }
+                }
+                stepOnFindBoard++;
+            }
+        } else if(cbi.checkOnMainDiagonal(board, numXO/2)){
+            while (true){
+                if (cbi.checkBoundDiagonal(x - stepOnFindBoard, y - stepOnFindBoard, board)){
+                    board[x - stepOnFindBoard][y - stepOnFindBoard] = ai;
+                    System.out.println("check");
+                    break;
+                } else if (cbi.checkBoundDiagonal(x + stepOnFindBoard, y + stepOnFindBoard, board)) {
+                    board[x + stepOnFindBoard][y + stepOnFindBoard] = ai;
+                    System.out.println("check");
+                    break;
+                }else {
+                    int a = random.nextInt(0, board.length);
+                    int b = random.nextInt(0, board[0].length);
+                    if (board[a][b].equals(DOT_EMPTY)){
+                        board[a][b] = ai;
+                        System.out.println("1. X: " + (a) + "Y: " + (b));
+                        System.out.println("check");
+                        break;
+                    }
+                }
+                stepOnFindBoard++;
+            }
+        } else if (cbi.checkOnColumn(board, numXO/2)) {
+            while (true){
+                if (cbi.checkBoundDiagonal(x, y - stepOnFindBoard, board)){
+                    board[x][y - stepOnFindBoard] = ai;
+                    System.out.println("check");
+                    break;
+                } else if (cbi.checkBoundDiagonal(x, y + stepOnFindBoard, board)) {
+                    board[x][y + stepOnFindBoard] = ai;
+                    System.out.println("check");
+                    break;
+                }else {
+                    int a = random.nextInt(0, board.length);
+                    int b = random.nextInt(0, board[0].length);
+                    if (board[a][b].equals(DOT_EMPTY)){
+                        board[a][b] = ai;
+                        System.out.println("1. X: " + (a) + "Y: " + (b));
+                        System.out.println("check");
+                        break;
+                    }
+                }
+                stepOnFindBoard++;
+            }
+        } else if (cbi.checkOnRow(board, numXO/2)) {
+            while (true){
+                if (cbi.checkBoundDiagonal(x - stepOnFindBoard, y, board)){
+                    board[x - stepOnFindBoard][y] = ai;
+                    System.out.println("check");
+                    break;
+                } else if (cbi.checkBoundDiagonal(x + stepOnFindBoard, y, board)) {
+                    board[x + stepOnFindBoard][y] = ai;
+                    System.out.println("check");
+                    break;
+                }else {
+                    int a = random.nextInt(0, board.length);
+                    int b = random.nextInt(0, board[0].length);
+                    if (board[a][b].equals(DOT_EMPTY)){
+                        board[a][b] = ai;
+                        System.out.println("1. X: " + (a) + "Y: " + (b));
+                        System.out.println("check");
+                        break;
+                    }
+                }
+                stepOnFindBoard++;
+            }
+        } else {
+            // Логика чтоб выйграть
+            while (true){
+                int a = random.nextInt(0, board.length);
+                int b = random.nextInt(0, board[0].length);
+                if (board[a][b].equals(DOT_EMPTY)){
+                    board[a][b] = ai;
+                    System.out.println("1. X: " + (a) + "Y: " + (b));
+                    System.out.println("check");
+                    break;
+                }
+            }
+
+
+        }
+
+        System.out.println("End work with board");
+    }
+    
+public class App {
+    public static void main(String[] args) {
+        Controller controller = new Controller();
+        controller.appStart();
+
+//        String[][] test = {
+//                {"X", "0", "*", "*", "X"},
+//                {"*", "*", "X", "*", "0"},
+//                {"*", "0", "*", "X", "X"},
+//                {"X", "X", "X", "X", "*"},
+//                {"0", "0", "*", "*", "0"}
+//        };
+//
+//        String[][] test1 = {
+//                {"*", "*", "*", "*", "*"},
+//                {"*", "*", "*", "*", "*"},
+//                {"*", "*", "*", "*", "*"},
+//                {"0", "*", "*", "*", "*"},
+//                {"0", "*", "*", "*", "*"}
+//        };
+//
+//        int x = 2; int y = 3;
+//        System.out.println(checkBoard(x, y, test, 4));
+//        printBoard(test1);
+//        System.out.println(checkBoard(x, y, test, 4));
+//        printBoard(test1);
+//        System.out.println(checkBoard(x, y, test, 4));
+//        printBoard(test1);
+
+
+
+
+
+    }
+    
+    public static String checkBoard(int x, int y, String[][] board, int countXO){
+        String ai = "X";
+        int count = 1;
+        int maxValue = 0;
+        int maxXindex = 0;
+        int maxYindex = 0;
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j].equals("*")){
+                    if (maxValue < sum(x, y, board, countXO, ai)){
+                        maxValue = sum(x, y, board, countXO, ai);
+                        maxXindex = i;
+                        maxYindex = j;
+                    }
+
+                }
+                count++;
+            }
+        }
+        board[maxXindex][maxYindex] = "ai";
+        return maxXindex + " " + maxYindex + " " + maxValue;
+
+    }
+
+
+    public static int checkDiag(int x, int y, String[][] board, int countXO, String ai){
+        int stepOne = 1;
+        int additional = 0;
+        int len = board.length;
+        while (true){
+            if (checkBound(x - stepOne, len) && checkBound(y + stepOne, len)){
+                if (board[x - stepOne][y + stepOne].equals(ai)){
+                    additional++;
+                } else if (board[x - stepOne][y + stepOne].equals("0")) {
+                    additional--;
+                }
+                stepOne++;
+            }else {
+                break;
+            }
+        }
+        return stepOne+additional;
+    }
+
+    public static int checkCol(int x, int y, String[][] board, int countXO, String ai){
+        int stepOne = 0;
+        int additional = 0;
+        int len = board.length;
+        while (true){
+            if (checkBound(y + stepOne, len)){
+                if (board[x][y + stepOne].equals(ai)){
+                    additional++;
+                } else if (board[x][y + stepOne].equals("0")) {
+                    additional--;
+                }
+                stepOne++;
+
+            }else {
+                break;
+            }
+        }
+        return stepOne+additional;
+    }
+
+    public static int checkMainDiag(int x, int y, String[][] board, int countXO, String ai){
+        int stepOne = 0;
+        int stepTwo = 0;
+        int additional = 0;
+        int len = board.length;
+        while (true){
+            if (checkBound(x + stepOne, len) && checkBound(y + stepOne, len)){
+                if (board[x+stepOne][y + stepOne].equals(ai)){
+                    additional++;
+                } else if (board[x+stepOne][y + stepOne].equals("0")) {
+                    additional--;
+                }
+                stepOne++;
+            }else {
+                break;
+            }
+        }
+        return stepOne+additional+stepTwo;
+    }
+
+    public static int checkRow(int x, int y, String[][] board, int countXO, String ai){
+        int stepOne = 0;
+        int stepTwo = 0;
+        int additional = 0;
+        int len = board.length;
+        while (true){
+            if (checkBound(x + stepOne, len)){
+                if (board[x+ stepOne][y].equals(ai)){
+                    additional++;
+                } else if (board[x + stepOne][y].equals("0")) {
+                    additional--;
+                }
+                stepOne++;
+            }else {
+                break;
+            }
+        }
+        return stepOne+additional+stepTwo;
+    }
+
+    public static boolean checkBound(int num, int l2){
+        return num >= 0 && num < l2;
+    }
+
+    public static int sum(int x, int y, String[][] board, int countXO, String ai){
+        return checkCol(x, y, board, countXO, ai) + checkRow(x, y, board, countXO, ai) +
+                + checkDiag(x, y, board, countXO, ai) + checkMainDiag(x, y, board, countXO, ai);
+    }
+
+    public static void printBoard(String[][] b){
+        for (int i = 0; i < b.length; i++) {
+            for (int j = 0; j < b[0].length; j++) {
+                System.out.print(b[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }   
+    
+    
+        public void stepRow(String ai, int x){
+        String[] test1 = new String[board[0].length];
+        int count = 0;
+        List<Integer> testXY = new ArrayList<>();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (i == x){
+                    test1[j] = board[j][i];
+                    if (test1[j].equals("*")){
+                        testXY.add(x);
+                        testXY.add(j);
+                        count++;
+                    }
+                }
+            }
+        }
+        if (count > 1){
+            board[testXY.get(3)][testXY.get(2)] = "0";
+        } else if (count == 0) {
+            randomStep(ai);
+        }else {
+            board[testXY.get(1)][testXY.get(0)] = "0";
+        }
+    }
+
+    public void stepColumn(String ai, int x){
+        String[] test1 = new String[board[0].length];
+        int count = 0;
+        List<Integer> testXY = new ArrayList<>();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (i == x){
+                    test1[j] = board[i][j];
+                    if (test1[j].equals("*")){
+                        testXY.add(x);
+                        testXY.add(j);
+                        count++;
+                    }
+                }
+            }
+        }
+        System.out.println(Arrays.toString(test1));
+        if (count > 1){
+            board[testXY.get(2)][testXY.get(3)] = ai;
+            System.out.println("X: " + testXY.get(2) + " Y: " + testXY.get(3));
+        } else if (count == 0) {
+            //random
+            randomStep(ai);
+        }else {
+            board[testXY.get(0)][testXY.get(1)] = ai;
+            System.out.println("X: " + testXY.get(0) + " Y: " + testXY.get(1));
+        }
+    }
+
+    public void stepDiagonal(String ai){
+        int len = Math.min(board.length, board[0].length);
+        String[] test1 = new String[len];
+        int count = 0;
+        int stepOne = 0;
+        int stepTwo = len-1;
+
+        List<Integer> testXY = new ArrayList<>();
+
+        while (stepOne < len){
+            test1[stepOne] = board[stepOne][stepTwo];
+            if (test1[stepOne].equals("*")){
+                testXY.add(stepOne);
+                testXY.add(stepTwo);
+                count++;
+            }
+            stepOne++;
+            stepTwo--;
+        }
+
+        System.out.println(Arrays.toString(test1));
+        if (count > 1) {
+            board[testXY.get(2)][testXY.get(3)] = ai;
+            System.out.println("X: " + testXY.get(2) + " Y: " + testXY.get(3));
+        } else if (count == 0) {
+            //random
+            randomStep(ai);
+        }else {
+            board[testXY.get(0)][testXY.get(1)] = ai;
+            System.out.println("X: " + testXY.get(0) + " Y: " + testXY.get(1));
+        }
+    }
+
+    public void stepMainDiagonal(String ai){
+        int len = Math.min(board.length, board[0].length);
+        String[] test1 = new String[len];
+        int count = 0;
+        int stepOne = 0;
+
+        List<Integer> testXY = new ArrayList<>();
+
+        while (stepOne < len){
+            test1[stepOne] = board[stepOne][stepOne];
+            if (test1[stepOne].equals("*")){
+                testXY.add(stepOne);
+                testXY.add(stepOne);
+                count++;
+            }
+            stepOne++;
+        }
+
+        System.out.println(Arrays.toString(test1));
+        if (count > 1) {
+            board[testXY.get(3)][testXY.get(2)] = ai;
+            System.out.println("X: " + testXY.get(3) + " Y: " + testXY.get(2));
+        } else if (count == 0) {
+            //random
+            randomStep(ai);
+        }else {
+            board[testXY.get(1)][testXY.get(0)] = ai;
+            System.out.println("X: " + testXY.get(1) + " Y: " + testXY.get(0));
+        }
+    } 
